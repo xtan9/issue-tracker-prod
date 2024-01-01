@@ -1,5 +1,6 @@
-import { Button } from "@radix-ui/themes";
 import { TrashIcon } from "@radix-ui/react-icons";
+import { Button } from "@radix-ui/themes";
+
 interface Props {
   id: string;
 }
