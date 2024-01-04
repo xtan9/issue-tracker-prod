@@ -1,11 +1,14 @@
 "use client";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface Props {
   id: string;
 }
 const DeleteIssueButton = ({ id }: Props) => {
+  const router = useRouter();
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -25,7 +28,14 @@ const DeleteIssueButton = ({ id }: Props) => {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button variant="solid" color="red">
+            <Button
+              color="red"
+              onClick={async () => {
+                await axios.delete("/api/issues/" + id);
+                router.push("/issues");
+                router.refresh();
+              }}
+            >
               Delete Issue
             </Button>
           </AlertDialog.Action>
