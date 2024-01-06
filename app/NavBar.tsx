@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "@/app/components";
 import {
   Avatar,
   Box,
@@ -61,7 +62,7 @@ const AuthStatus = () => {
         </Link>
       </Box>
     );
-  return null;
+  return <Skeleton width="3rem" />;
 };
 
 const NavLinks = () => {
