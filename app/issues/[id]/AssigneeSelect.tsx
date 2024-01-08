@@ -1,19 +1,23 @@
 "use client";
-import { User } from "@prisma/client";
+import { Skeleton } from "@/app/components";
+import { Issue, User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Skeleton } from "@/app/components";
 
-const AssigneeSelect = () => {
+const UNASSIGNED = "unassigned";
+interface Props {
+  issue: Issue;
+}
+
+const AssigneeSelect = ({ issue }: Props) => {
   const {
     data: users,
     error,
     isLoading,
   } = useQuery<User[]>({
     queryKey: ["users"],
-    queryFn: () => axios.get("/xapi/users").then((res) => res.data),
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
     staleTime: 10 * 1000, //60s
     retry: 3,
   });
@@ -22,10 +26,18 @@ const AssigneeSelect = () => {
   if (error) return null;
 
   return (
-    <Select.Root>
+    <Select.Root
+      defaultValue={issue.assigneeId || UNASSIGNED}
+      onValueChange={(userId) => {
+        axios.patch("/api/issues/" + issue.id, {
+          assigneeId: userId === UNASSIGNED ? null : userId,
+        });
+      }}
+    >
       <Select.Trigger placeholder="Assign to..." />
       <Select.Content>
         <Select.Group>
+          <Select.Item value={UNASSIGNED}>Unassigned</Select.Item>
           {users?.map((user) => (
             <Select.Item key={user.id} value={user.id}>
               {user.name}
