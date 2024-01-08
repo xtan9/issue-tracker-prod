@@ -20,6 +20,8 @@ model Issue {
   status      Status   @default(OPEN)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  assigneeId  String?  @db.VarChar(255)
+  assignee    User?    @relation(fields: [assigneeId], references: [id])
 }
 
 model Account {
@@ -57,6 +59,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  issues        Issue[]
 }
 
 model VerificationToken {
