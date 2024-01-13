@@ -7,7 +7,7 @@ import NextLink from "next/link";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 
 interface Props {
-  searchParams: { status: Status; orderBy: keyof Issue };
+  searchParams: { status: Status; orderBy: keyof Issue; page: number };
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
@@ -76,7 +76,11 @@ const IssuesPage = async ({ searchParams }: Props) => {
           ))}
         </Table.Body>
       </Table.Root>
-      <Pagination itemCount={100} pageSize={10} currentPage={2} />
+      <Pagination
+        itemCount={100}
+        pageSize={10}
+        currentPage={searchParams.page}
+      />
     </div>
   );
 };
