@@ -11,6 +11,8 @@ interface Props {
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
+  const pageSize = 10;
+  const currentPage = searchParams.page || 1;
   const columns: { lable: string; value: keyof Issue; className?: string }[] = [
     { lable: "Issue", value: "title" },
     { lable: "Status", value: "status", className: "hidden md:table-cell" },
@@ -35,7 +37,10 @@ const IssuesPage = async ({ searchParams }: Props) => {
       status,
     },
     orderBy,
+    skip: (currentPage - 1) * pageSize,
+    take: pageSize,
   });
+  const issuesCount = await prisma.issue.count({ where: { status } });
   return (
     <div>
       <IssueActions />
@@ -77,9 +82,9 @@ const IssuesPage = async ({ searchParams }: Props) => {
         </Table.Body>
       </Table.Root>
       <Pagination
-        itemCount={100}
-        pageSize={10}
-        currentPage={searchParams.page}
+        itemCount={issuesCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
       />
     </div>
   );
