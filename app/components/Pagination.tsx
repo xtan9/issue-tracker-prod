@@ -28,7 +28,7 @@ const Pagination = ({ currentPage, itemCount, pageSize }: Props) => {
   if (pageCount <= 1) return null;
 
   return (
-    <UIPagination className="mt-1">
+    <UIPagination>
       <PaginationContent>
         <PaginationPrevious href={pageHref(currentPage - 1 || 1)} />
         {Array.from({ length: pageCount }, (_, index) => (
