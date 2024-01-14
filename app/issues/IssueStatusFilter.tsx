@@ -2,7 +2,6 @@
 import { Status } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
 
 const status: { label: string; value: Status | "ALL" }[] = [
   { label: "All", value: "ALL" },

@@ -1,12 +1,9 @@
-import { IssueStatusBadge, Link, Pagination } from "@/app/components";
+import { Pagination } from "@/app/components";
 import prisma from "@/prisma/client";
-
-import IssueActions from "./IssueActions";
 import { Issue, Status } from "@prisma/client";
-import NextLink from "next/link";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
-import IssueTable, { columnKeys } from "./IssueTable";
 import { Flex } from "@radix-ui/themes";
+import IssueActions from "./IssueActions";
+import IssueTable, { columnKeys } from "./IssueTable";
 
 export interface IssueQuery {
   status: Status;
