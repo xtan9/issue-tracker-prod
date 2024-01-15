@@ -8,46 +8,48 @@ import {
 } from "@/components/ui/card";
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
+import Link from "next/link";
 import React from "react";
 
 interface issueStatus {
-  status: Status;
-  title: string;
+  value: Status;
+  label: string;
 }
 const statuses: issueStatus[] = [
   {
-    status: "OPEN",
-    title: "Open",
+    value: "OPEN",
+    label: "Open",
   },
   {
-    status: "IN_PROGRESS",
-    title: "In Progress",
+    value: "IN_PROGRESS",
+    label: "In-Progress",
   },
   {
-    status: "CLOSED",
-    title: "Closed",
+    value: "CLOSED",
+    label: "Closed",
   },
 ];
 const IssueSummary = () => {
   return (
     <div className="flex space-x-4">
       {statuses.map((status) => (
-        <SummaryCard status={status} />
+        <SummaryCard key={status.value} status={status} />
       ))}
     </div>
   );
 };
 
-const SummaryCard = ({ status }: { status: issueStatus }) => {
-  const count = prisma.issue.count({ where: { status: status.status } });
+const SummaryCard = async ({ status }: { status: issueStatus }) => {
+  const count = await prisma.issue.count({ where: { status: status.value } });
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{`${status.title} Issues`}</CardTitle>
+        <Link
+          className="text-sm font-medium"
+          href={"/issues?status=" + status.value}
+        >{`${status.label} Issues`}</Link>
       </CardHeader>
-      <CardContent>
-        <p>{count}</p>
-      </CardContent>
+      <CardContent className="text-3xl font-semibold">{count}</CardContent>
     </Card>
   );
 };
