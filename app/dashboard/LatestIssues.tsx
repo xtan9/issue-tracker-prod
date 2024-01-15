@@ -1,27 +1,11 @@
-import {
-  Table,
-  TableCaption,
-  TableHead,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
 import prisma from "@/prisma/client";
 
-import React from "react";
-import { IssueStatusBadge } from "../components";
-import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
+import { IssueStatusBadge } from "../components";
 
 const LatestIssues = async () => {
   const latestIssues = await prisma.issue.findMany({

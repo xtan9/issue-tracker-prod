@@ -1,8 +1,7 @@
-import React from "react";
-import LatestIssues from "./LatestIssues";
-import IssueSummary from "./IssueSummary";
-import IssueCharts from "./IssueCharts";
 import prisma from "@/prisma/client";
+import IssueCharts from "./IssueCharts";
+import IssueSummary from "./IssueSummary";
+import LatestIssues from "./LatestIssues";
 
 const Dashboard = async () => {
   const openCount = await prisma.issue.count({ where: { status: "OPEN" } });

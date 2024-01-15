@@ -1,15 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import prisma from "@/prisma/client";
-import { Status } from "@prisma/client";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
-import React from "react";
 
 interface summaryData {
   value: number;
