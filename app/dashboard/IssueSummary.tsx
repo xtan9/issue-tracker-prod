@@ -44,7 +44,10 @@ const SummaryCard = async ({ status }: { status: summaryData }) => {
           href={"/issues?status=" + status.label.toUpperCase()}
         >{`${status.label} Issues`}</Link>
       </CardHeader>
-      <CardContent className="text-3xl font-semibold text-teal-600">
+      <CardContent
+        className="text-3xl font-semibold text-center text-accent-9"
+        style={{ color: "var(--accent-9)" }}
+      >
         {status.value}
       </CardContent>
     </Card>
