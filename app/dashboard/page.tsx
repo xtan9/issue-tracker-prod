@@ -12,19 +12,22 @@ const Dashboard = async () => {
   const closeCount = await prisma.issue.count({ where: { status: "CLOSED" } });
 
   return (
-    <>
-      <IssueSummary
-        open={openCount}
-        in_progress={inProgressCount}
-        closed={closeCount}
-      />
+    <div className="container lg:grid lg:grid-cols-2 lg:gap-4">
+      <div className="flex flex-col gap-4">
+        <IssueSummary
+          open={openCount}
+          in_progress={inProgressCount}
+          closed={closeCount}
+        />
+        <IssueCharts
+          open={openCount}
+          in_progress={inProgressCount}
+          closed={closeCount}
+        />
+      </div>
+
       <LatestIssues />
-      <IssueCharts
-        open={openCount}
-        in_progress={inProgressCount}
-        closed={closeCount}
-      />
-    </>
+    </div>
   );
 };
 
