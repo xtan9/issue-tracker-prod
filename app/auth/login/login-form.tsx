@@ -11,11 +11,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
+const LoginSchema = z.object({
+  email: z.string().email({ message: "Email is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
+});
 
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
