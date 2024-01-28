@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { APP_NAME } from "../constants";
+
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="overflow-hidden rounded-[0.5rem] border bg-background shadow-md md:shadow-xl">
@@ -17,7 +20,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             >
               <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
             </svg>
-            My Family App
+            {APP_NAME}
           </div>
           <div className="z-20 mt-auto">
             <blockquote className="space-y-2">
@@ -30,9 +33,36 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             </blockquote>
           </div>
         </div>
-        <div className="lg:p-8">{children}</div>
+        <div className="lg:p-8">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+            {children}
+            <Agreement />
+          </div>
+        </div>
       </div>
     </div>
+  );
+};
+
+const Agreement = () => {
+  return (
+    <p className="px-8 text-center text-sm text-muted-foreground">
+      By clicking continue, you agree to our{" "}
+      <Link
+        href="/terms"
+        className="underline underline-offset-4 hover:text-primary"
+      >
+        Terms of Service
+      </Link>{" "}
+      and{" "}
+      <Link
+        href="/privacy"
+        className="underline underline-offset-4 hover:text-primary"
+      >
+        Privacy Policy
+      </Link>
+      .
+    </p>
   );
 };
 
