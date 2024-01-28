@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { APP_NAME } from "../constants";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
+import Link from "next/link";
+import { APP_NAME } from "../constants";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
