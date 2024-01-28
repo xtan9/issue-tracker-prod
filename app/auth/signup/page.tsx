@@ -2,7 +2,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
-import UserSignupForm from "./user-signup-form";
+import SignupForm from "./signup-form";
 
 export const metadata: Metadata = {
   title: "Sign Up",
@@ -29,7 +29,7 @@ const SignUpPage = () => {
           Enter your email below to create your account
         </p>
       </div>
-      <UserSignupForm />
+      <SignupForm />
     </>
   );
 };

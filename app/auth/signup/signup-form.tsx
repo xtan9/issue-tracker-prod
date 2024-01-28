@@ -2,16 +2,15 @@
 
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
-import { Icons } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import SocialLogin from "../social-login";
+import { cn } from "@/lib/utils";
 
-interface UserSignupFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
-const UserSignupForm = ({ className, ...props }: UserSignupFormProps) => {
+const SignupForm = ({ className, ...props }: Props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -49,9 +48,8 @@ const UserSignupForm = ({ className, ...props }: UserSignupFormProps) => {
           </Button>
         </div>
       </form>
-      <SocialLogin />
     </div>
   );
 };
 
-export default UserSignupForm;
+export default SignupForm;

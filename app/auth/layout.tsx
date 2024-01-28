@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { APP_NAME } from "../constants";
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/ui/icons";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -36,11 +38,33 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             {children}
+            <SocialLogin />
             <Agreement />
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+const SocialLogin = () => {
+  return (
+    <>
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
+        </div>
+      </div>
+      <Button variant="outline" type="button">
+        <Icons.gitHub className="mr-2 h-4 w-4" />
+        GitHub
+      </Button>
+    </>
   );
 };
 

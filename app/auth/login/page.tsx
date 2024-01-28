@@ -18,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import SocialLogin from "../social-login";
 
 const LoginPage = () => {
   const [isPending, startTransition] = useTransition();
@@ -84,7 +83,6 @@ const LoginPage = () => {
           </Button>
         </form>
       </Form>
-      <SocialLogin />
     </>
   );
 };
