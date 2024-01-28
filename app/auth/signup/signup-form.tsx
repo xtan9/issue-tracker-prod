@@ -16,7 +16,7 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-export const SignupSchema = z
+const SignupSchema = z
   .object({
     email: z.string().email({ message: "Email is required" }),
     password: z
