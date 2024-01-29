@@ -1,6 +1,6 @@
 "use server";
 
-import { LoginSchema } from "@/app/auth/login/login-form";
+import { LoginSchema } from "@/schemas/auth";
 import * as z from "zod";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {

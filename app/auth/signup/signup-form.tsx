@@ -1,5 +1,5 @@
 "use client";
-import { login } from "@/actions/login";
+import { signup } from "@/actions/signup";
 import FormError from "@/components/form-error";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,27 +11,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { SignupSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-const SignupSchema = z
-  .object({
-    email: z.string().email({ message: "Email is required" }),
-    password: z
-      .string()
-      .min(6, { message: "Password must be at least 6 characters" }),
-    confirmPassword: z
-      .string()
-      .min(6, { message: "Password must be at least 6 characters" }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords does not match",
-  });
-
-const LoginForm = () => {
+const SignupForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>();
   const form = useForm<z.infer<typeof SignupSchema>>({
@@ -45,7 +31,7 @@ const LoginForm = () => {
 
   const onSubmit = (values: z.infer<typeof SignupSchema>) => {
     setError(undefined);
-    startTransition(() => login(values).then((res) => setError(res?.error)));
+    startTransition(() => signup(values).then((res) => setError(res?.error)));
   };
   return (
     <Form {...form}>
@@ -112,4 +98,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignupForm;
