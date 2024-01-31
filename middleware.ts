@@ -1,17 +1,41 @@
-// see https://stackoverflow.com/questions/72807218/next-auth-js-with-next-js-middleware-redirects-to-sign-in-page-after-successful#:~:text=I%20manage%20it%20like%20this
-import { withAuth } from "next-auth/middleware";
+import authConfig from "@/auth.config";
+import {
+  DEFAULT_LOGIN_REDIRECT,
+  apiAuthPrefix,
+  authRoutes,
+  publicRoutes,
+} from "@/routes";
+import NextAuth from "next-auth";
 
-export default withAuth({
-  callbacks: {
-    authorized: ({ req }) => {
-      // verify token and return a boolean
-      const sessionToken = req.cookies.get("next-auth.session-token");
-      if (sessionToken) return true;
-      else return false;
-    },
-  },
+export const { auth } = NextAuth(authConfig);
+
+export default auth((req) => {
+  const { nextUrl } = req;
+  const isLoggedIn = !!req.auth;
+
+  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+
+  if (isApiAuthRoute) {
+    return null;
+  }
+
+  if (isAuthRoute) {
+    if (isLoggedIn) {
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+    }
+    return null;
+  }
+
+  if (!isLoggedIn && !isPublicRoute) {
+    return Response.redirect(new URL("/auth/login", nextUrl));
+  }
+
+  return null;
 });
 
 export const config = {
-  matcher: ["/issues/new", "/issues/edit/:id+"],
+  // Any routes matches the regex will triger the auth function above.
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
