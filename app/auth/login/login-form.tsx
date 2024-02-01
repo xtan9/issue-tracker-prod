@@ -71,7 +71,7 @@ const LoginForm = () => {
           )}
         />
         <FormError message={error} />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={isPending}>
           Sign In with Email
         </Button>
       </form>
