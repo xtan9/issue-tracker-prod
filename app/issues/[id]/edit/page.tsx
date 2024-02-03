@@ -1,5 +1,5 @@
 import IssueFormSkeleton from "@/app/issues/_components/IssueFormSkeleton";
-import prisma from "@/prisma/client";
+import db from "@/lib/db";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const EditIssuePage = async ({ params: { id } }: Props) => {
-  const issue = await prisma.issue.findUnique({
+  const issue = await db.issue.findUnique({
     where: { id: parseInt(id) },
   });
   if (!issue) {

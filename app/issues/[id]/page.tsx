@@ -1,20 +1,20 @@
-import prisma from "@/prisma/client";
+import authOptions from "@/app/auth/authOptions";
+import db from "@/lib/db";
 import { Box, Flex, Grid } from "@radix-ui/themes";
+import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import { cache } from "react";
+import AssigneeSelect from "./AssigneeSelect";
 import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
-import { getServerSession } from "next-auth";
-import authOptions from "@/app/auth/authOptions";
-import AssigneeSelect from "./AssigneeSelect";
-import { cache } from "react";
 
 interface Props {
   params: { id: string };
 }
 
 const fetchIssue = cache((issueId: number) =>
-  prisma.issue.findUnique({
+  db.issue.findUnique({
     where: { id: issueId },
   })
 );

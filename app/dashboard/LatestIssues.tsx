@@ -1,14 +1,12 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-
-import prisma from "@/prisma/client";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import db from "@/lib/db";
 import Link from "next/link";
 import { IssueStatusBadge } from "../components";
 
 const LatestIssues = async () => {
-  const latestIssues = await prisma.issue.findMany({
+  const latestIssues = await db.issue.findMany({
     orderBy: { createdAt: "asc" },
     take: 5,
     include: {

@@ -1,15 +1,15 @@
-import prisma from "@/prisma/client";
+import db from "@/lib/db";
+import { Metadata } from "next";
 import IssueCharts from "./IssueCharts";
 import IssueSummary from "./IssueSummary";
 import LatestIssues from "./LatestIssues";
-import { Metadata } from "next";
 
 const Dashboard = async () => {
-  const openCount = await prisma.issue.count({ where: { status: "OPEN" } });
-  const inProgressCount = await prisma.issue.count({
+  const openCount = await db.issue.count({ where: { status: "OPEN" } });
+  const inProgressCount = await db.issue.count({
     where: { status: "IN_PROGRESS" },
   });
-  const closeCount = await prisma.issue.count({ where: { status: "CLOSED" } });
+  const closeCount = await db.issue.count({ where: { status: "CLOSED" } });
 
   return (
     <div className="container lg:grid lg:grid-cols-2 lg:gap-4">

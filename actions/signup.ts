@@ -2,9 +2,9 @@
 
 import bcrypt from "bcryptjs";
 import * as z from "zod";
-import db from "@/prisma/client";
 import { SignupSchema } from "@/schemas/auth";
 import { getUserByEmail } from "@/lib/data";
+import db from "@/lib/db";
 
 export const signup = async (values: z.infer<typeof SignupSchema>) => {
   const validatedFields = SignupSchema.safeParse(values);
