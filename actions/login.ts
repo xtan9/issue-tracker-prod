@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn } from "@/auth"; // Sign in from server side
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 import { LoginSchema } from "@/schemas/auth";
