@@ -2,6 +2,7 @@
 
 import { signIn } from "@/auth"; // Sign in from server side
 import { getUserByEmail } from "@/lib/data";
+import { sendVerificationEmail } from "@/lib/email";
 import { generateVerificationToken } from "@/lib/token";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
@@ -26,7 +27,10 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       existingUser.email
     );
 
-    // TODO: send email
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token
+    );
 
     return { success: "Confirmation email sent!" };
   }
