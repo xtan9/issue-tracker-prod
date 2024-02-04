@@ -1,6 +1,8 @@
 "use server";
 
 import { signIn } from "@/auth"; // Sign in from server side
+import { getUserByEmail } from "@/lib/data";
+import { generateVerificationToken } from "@/lib/token";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 import { LoginSchema } from "@/schemas/auth";
@@ -12,6 +14,22 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   if (!validatedFields.success) return { error: "Login failed" };
 
   const { email, password } = validatedFields.data;
+
+  const existingUser = await getUserByEmail(email);
+
+  if (!existingUser || !existingUser.email || !existingUser.password) {
+    return { error: "Email does not exist!" };
+  }
+
+  if (!existingUser.emailVerified) {
+    const verificationToken = await generateVerificationToken(
+      existingUser.email
+    );
+
+    // TODO: send email
+
+    return { success: "Confirmation email sent!" };
+  }
 
   try {
     await signIn("credentials", {

@@ -13,11 +13,17 @@ export const {
 } = NextAuth({
   adapter: PrismaAdapter(db),
   callbacks: {
-    // async signIn({ user }) {
-    //   const existingUser = await getUserByID(user.id);
-    //   if (!existingUser || !existingUser.emailVerified) return false;
-    //   return true;
-    // },
+    async signIn({ user, account }) {
+      // Allow OAuth without email verification
+      if (account?.provider !== "credentials") return true;
+      // Prevent sign in without email verification
+      const existingUser = await getUserByID(user.id);
+      if (!existingUser?.emailVerified) return false;
+
+      // TOD: Add 2FA Check
+
+      return true;
+    },
     async jwt({ token }) {
       const existingUser = await getUserByID(token.sub);
       if (existingUser) token.role = existingUser.role;
