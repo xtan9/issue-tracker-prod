@@ -1,6 +1,7 @@
 "use client";
 import { signup } from "@/actions/signup";
 import FormError from "@/components/form-error";
+import FormSuccess from "@/components/form-success";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,6 +21,7 @@ import * as z from "zod";
 const SignupForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
@@ -32,7 +34,12 @@ const SignupForm = () => {
 
   const onSubmit = (values: z.infer<typeof SignupSchema>) => {
     setError(undefined);
-    startTransition(() => signup(values).then((res) => setError(res?.error)));
+    startTransition(() =>
+      signup(values).then((res) => {
+        setError(res?.error);
+        setSuccess(res?.success);
+      })
+    );
   };
   return (
     <Form {...form}>
@@ -104,6 +111,7 @@ const SignupForm = () => {
           )}
         />
         <FormError message={error} />
+        <FormSuccess message={success} />
         <Button type="submit" className="w-full">
           Sign Up with Email
         </Button>

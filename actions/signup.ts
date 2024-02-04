@@ -5,6 +5,7 @@ import * as z from "zod";
 import { SignupSchema } from "@/schemas/auth";
 import { getUserByEmail } from "@/lib/data";
 import db from "@/lib/db";
+import { generateVerificationToken } from "@/lib/token";
 
 export const signup = async (values: z.infer<typeof SignupSchema>) => {
   const validatedFields = SignupSchema.safeParse(values);
@@ -19,6 +20,7 @@ export const signup = async (values: z.infer<typeof SignupSchema>) => {
   await db.user.create({ data: { name, email, password: hashedPassword } });
 
   // TODO: Send verification token email.
+  const verficationToken = await generateVerificationToken(email);
 
-  return { success: "User created!" };
+  return { success: "Confirmation email sent!" };
 };
