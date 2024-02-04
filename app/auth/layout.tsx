@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { APP_NAME } from "../constants";
-import Social from "./social";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -37,34 +35,10 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             {children}
-            <Social />
-            <Agreement />
           </div>
         </div>
       </div>
     </div>
-  );
-};
-
-const Agreement = () => {
-  return (
-    <p className="px-8 text-center text-sm text-muted-foreground">
-      By clicking continue, you agree to our{" "}
-      <Link
-        href="/terms"
-        className="underline underline-offset-4 hover:text-primary"
-      >
-        Terms of Service
-      </Link>{" "}
-      and{" "}
-      <Link
-        href="/privacy"
-        className="underline underline-offset-4 hover:text-primary"
-      >
-        Privacy Policy
-      </Link>
-      .
-    </p>
   );
 };
 

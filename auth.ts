@@ -1,11 +1,9 @@
 import authConfig from "@/auth.config";
+import db from "@/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient, UserRole } from "@prisma/client";
+import { UserRole } from "@prisma/client";
 import NextAuth from "next-auth";
 import { getUserByID } from "./lib/data";
-import db from "@/lib/db";
-
-const prisma = new PrismaClient();
 
 export const {
   handlers: { GET, POST },
@@ -13,7 +11,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(db),
   callbacks: {
     // async signIn({ user }) {
     //   const existingUser = await getUserByID(user.id);
@@ -44,6 +42,10 @@ export const {
         data: { emailVerified: new Date() },
       });
     },
+  },
+  pages: {
+    signIn: "/auth/login",
+    error: "/auth/error",
   },
   session: { strategy: "jwt" },
   ...authConfig,

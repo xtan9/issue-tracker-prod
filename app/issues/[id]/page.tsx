@@ -1,13 +1,12 @@
-import authOptions from "@/app/auth/authOptions";
 import db from "@/lib/db";
 import { Box, Flex, Grid } from "@radix-ui/themes";
-import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import AssigneeSelect from "./AssigneeSelect";
 import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
+import { auth } from "@/auth";
 
 interface Props {
   params: { id: string };
@@ -20,7 +19,7 @@ const fetchIssue = cache((issueId: number) =>
 );
 
 const IssueDetailPage = async ({ params: { id } }: Props) => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (isNaN(parseInt(id, 10))) {
     notFound();
   }

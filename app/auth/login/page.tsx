@@ -1,3 +1,5 @@
+import Agreement from "@/app/auth/agreement";
+import Social from "@/app/auth/social";
 import { APP_NAME } from "@/app/constants";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -20,6 +22,8 @@ const LoginPage = () => {
         Sign in to {APP_NAME}
       </h1>
       <LoginForm />
+      <Social />
+      <Agreement />
     </>
   );
 };

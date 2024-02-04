@@ -1,3 +1,5 @@
+import Agreement from "@/app/auth/agreement";
+import Social from "@/app/auth/social";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
@@ -25,6 +27,8 @@ const SignUpPage = () => {
         Create an account
       </h1>
       <SignupForm />
+      <Social />
+      <Agreement />
     </>
   );
 };

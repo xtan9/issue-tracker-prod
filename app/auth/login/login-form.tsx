@@ -13,11 +13,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email is already used by an existing account"
+      : "";
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>();
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -70,7 +76,7 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <FormError message={error} />
+        <FormError message={error || urlError} />
         <Button type="submit" className="w-full" disabled={isPending}>
           Sign In with Email
         </Button>
