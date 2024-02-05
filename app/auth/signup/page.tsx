@@ -1,9 +1,5 @@
-import Agreement from "@/app/auth/agreement";
-import Social from "@/app/auth/social";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { Metadata } from "next";
-import Link from "next/link";
+import AuthContent from "../auth-content";
 import SignupForm from "./signup-form";
 
 export const metadata: Metadata = {
@@ -13,23 +9,13 @@ export const metadata: Metadata = {
 
 const SignUpPage = () => {
   return (
-    <>
-      <Link
-        href="/auth/login"
-        className={cn(
-          buttonVariants({ variant: "ghost" }),
-          "absolute right-4 top-4 md:right-8 md:top-5"
-        )}
-      >
-        Login
-      </Link>
-      <h1 className="text-2xl text-center font-semibold tracking-tight">
-        Create an account
-      </h1>
+    <AuthContent
+      title="Create an account"
+      buttonHref="/auth/login"
+      buttonLable="Login"
+    >
       <SignupForm />
-      <Social />
-      <Agreement />
-    </>
+    </AuthContent>
   );
 };
 

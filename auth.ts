@@ -14,9 +14,9 @@ export const {
   adapter: PrismaAdapter(db),
   callbacks: {
     async signIn({ user, account }) {
-      // Allow OAuth without email verification
-      if (account?.provider !== "credentials") return true;
-      // Prevent sign in without email verification
+      // Allow OAuth without email verification.
+      if (account?.type === "oauth") return true;
+      // Prevent sign in without email verification.
       const existingUser = await getUserByID(user.id);
       if (!existingUser?.emailVerified) return false;
 

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const error = () => {
+const ErrorPage = () => {
   return (
     <div className="text-center">
       Opps! Something went wrong!
@@ -12,4 +12,4 @@ const error = () => {
   );
 };
 
-export default error;
+export default ErrorPage;
