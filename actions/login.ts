@@ -11,30 +11,28 @@ import { AuthError } from "next-auth";
 import * as z from "zod";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
+  // Use zod to validate inputs.
   const validatedFields = LoginSchema.safeParse(values);
   if (!validatedFields.success) return { error: "Login failed" };
 
   const { email, password } = validatedFields.data;
-
   const existingUser = await getUserByEmail(email);
-
+  // Check email existance.
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: "Email does not exist!" };
   }
-
+  // Verify email if not already verified.
   if (!existingUser.emailVerified) {
     const verificationToken = await generateVerificationToken(
       existingUser.email
     );
-
     await sendVerificationEmail(
       verificationToken.email,
       verificationToken.token
     );
-
     return { success: "Confirmation email sent!" };
   }
-
+  // Sign in user.
   try {
     await signIn("credentials", {
       email,

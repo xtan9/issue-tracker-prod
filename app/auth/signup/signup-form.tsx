@@ -34,6 +34,7 @@ const SignupForm = () => {
 
   const onSubmit = (values: z.infer<typeof SignupSchema>) => {
     setError(undefined);
+    setSuccess(undefined);
     startTransition(() =>
       signup(values).then((res) => {
         setError(res?.error);
