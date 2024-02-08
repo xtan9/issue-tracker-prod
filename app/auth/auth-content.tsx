@@ -20,8 +20,8 @@ const AuthContent = ({
   title,
   buttonLable,
   buttonHref,
-  showSocial = true,
-  showAgreement = true,
+  showSocial,
+  showAgreement,
 }: Props) => {
   return (
     <>

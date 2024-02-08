@@ -1,7 +1,6 @@
 "use client";
 
 import { BeatLoader } from "react-spinners";
-import AuthContent from "../auth-content";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { newVerification } from "@/actions/new-verification";
@@ -31,17 +30,11 @@ const NewVerificationForm = () => {
   }, [token]);
 
   return (
-    <AuthContent
-      title="Create an account"
-      buttonHref="/auth/login"
-      buttonLable="Login"
-    >
-      <div className="flex items-center justify-center">
-        {!success && !error && <BeatLoader />}
-        <FormSuccess message={success} />
-        <FormError message={error} />
-      </div>
-    </AuthContent>
+    <div className="flex items-center justify-center">
+      {!success && !error && <BeatLoader />}
+      <FormSuccess message={success} />
+      <FormError message={error} />
+    </div>
   );
 };
 

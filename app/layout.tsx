@@ -30,7 +30,7 @@ export default function RootLayout({
         <QueryClientProvider>
           <AuthProvider>
             <Theme accentColor="teal" radius="full">
-              <NavBar />
+              {/* <NavBar /> */}
               <main className="p-5">
                 <Container>{children}</Container>
               </main>

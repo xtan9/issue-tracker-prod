@@ -8,6 +8,8 @@ const LoginPage = () => {
       title={`Sign in to ${APP_NAME}`}
       buttonHref="/auth/signup"
       buttonLable="Sign Up"
+      showSocial
+      showAgreement
     >
       <LoginForm />
     </AuthContent>

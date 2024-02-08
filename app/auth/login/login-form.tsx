@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -80,6 +81,14 @@ const LoginForm = () => {
                   {...field}
                 />
               </FormControl>
+              <Button
+                variant="link"
+                size="sm"
+                asChild
+                className="px-0 font-normal"
+              >
+                <Link href="/auth/reset">Forgot password?</Link>
+              </Button>
               <FormMessage />
             </FormItem>
           )}

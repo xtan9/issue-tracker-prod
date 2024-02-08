@@ -13,6 +13,8 @@ const SignUpPage = () => {
       title="Create an account"
       buttonHref="/auth/login"
       buttonLable="Login"
+      showSocial
+      showAgreement
     >
       <SignupForm />
     </AuthContent>
