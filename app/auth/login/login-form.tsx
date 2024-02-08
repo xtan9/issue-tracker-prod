@@ -1,6 +1,7 @@
 "use client";
 import { login } from "@/actions/login";
 import FormError from "@/components/form-error";
+import FormSuccess from "@/components/form-success";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -37,7 +38,13 @@ const LoginForm = () => {
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError(undefined);
-    startTransition(() => login(values).then((res) => setError(res?.error)));
+    setSuccess(undefined);
+    startTransition(() =>
+      login(values).then((res) => {
+        setError(res?.error);
+        setSuccess(res?.success);
+      })
+    );
   };
   return (
     <Form {...form}>
@@ -78,6 +85,7 @@ const LoginForm = () => {
           )}
         />
         <FormError message={error || urlError} />
+        <FormSuccess message={success} />
         <Button type="submit" className="w-full" disabled={isPending}>
           Sign In with Email
         </Button>
