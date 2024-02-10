@@ -17,7 +17,7 @@ export const getUserByID = async (id: string | undefined) => {
   }
 };
 
-// VerificationToken
+// Verification Token
 export const getVerificationTokenByToken = async (token: string) => {
   try {
     const verificationToken = await db.verificationToken.findUnique({
@@ -37,6 +37,19 @@ export const getVerificationTokenByEmail = async (email: string) => {
     });
 
     return verificationToken;
+  } catch {
+    return null;
+  }
+};
+
+// Password Reset Token
+export const getPasswordResetTokenByEmail = async (email: string) => {
+  try {
+    const passwordResetToken = await db.passwordResetToken.findFirst({
+      where: { email },
+    });
+
+    return passwordResetToken;
   } catch {
     return null;
   }
