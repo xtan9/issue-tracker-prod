@@ -1,5 +1,5 @@
+import AuthContent from "@/app/auth/auth-content";
 import { APP_NAME } from "@/app/constants";
-import AuthContent from "../auth-content";
 import LoginForm from "./login-form";
 
 const LoginPage = () => {

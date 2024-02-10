@@ -1,14 +1,14 @@
 import AuthContent from "@/app/auth/auth-content";
-import ResetForm from "./reset-form";
+import NewPasswordForm from "./new-password-form";
 
 const ResetPage = () => {
   return (
     <AuthContent
-      title="Reset your password"
+      title="Update your password"
       buttonHref="/auth/login"
       buttonLable="Login"
     >
-      <ResetForm />
+      <NewPasswordForm />
     </AuthContent>
   );
 };

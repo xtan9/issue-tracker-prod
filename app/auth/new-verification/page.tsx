@@ -1,6 +1,5 @@
-import React from "react";
+import AuthContent from "@/app/auth/auth-content";
 import NewVerificationForm from "./new-verification-form";
-import AuthContent from "../auth-content";
 
 const NewVarificationPage = () => {
   return (

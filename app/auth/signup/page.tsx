@@ -1,5 +1,5 @@
+import AuthContent from "@/app/auth/auth-content";
 import { Metadata } from "next";
-import AuthContent from "../auth-content";
 import SignupForm from "./signup-form";
 
 export const metadata: Metadata = {
