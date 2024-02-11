@@ -41,6 +41,7 @@ model User {
   role                  UserRole               @default(USER)
   accounts              Account[]
   issues                Issue[]
+  isTwoFactorEnabled    Boolean                @default(false)
   TwoFactorConfirmation TwoFactorConfirmation?
 }
 

@@ -3,7 +3,7 @@ import db from "@/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { UserRole } from "@prisma/client";
 import NextAuth from "next-auth";
-import { getUserByID } from "./lib/data";
+import { getTwoFactorConfirmationByUserId, getUserByID } from "./lib/data";
 
 export const {
   handlers: { GET, POST },
@@ -14,17 +14,26 @@ export const {
   adapter: PrismaAdapter(db),
   callbacks: {
     async signIn({ user, account }) {
-      // Allow OAuth without email verification.
+      // Allow OAuth providers bypass email verification.
       if (account?.type !== "credentials") return true;
-      // Prevent sign in without email verification.
+      // Prevent signing in without email verification.
       const existingUser = await getUserByID(user.id);
       if (!existingUser?.emailVerified) return false;
-
-      // TOD: Add 2FA Check
-
+      // Two factor auth.
+      if (existingUser.isTwoFactorEnabled) {
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
+          existingUser.id
+        );
+        if (!twoFactorConfirmation) return false;
+        // Delete two factor confirmation for next sign in
+        await db.twoFactorConfirmation.delete({
+          where: { id: twoFactorConfirmation.id },
+        });
+      }
       return true;
     },
     async jwt({ token }) {
+      // Pass user role via token.
       const existingUser = await getUserByID(token.sub);
       if (existingUser) token.role = existingUser.role;
       return token;
@@ -51,7 +60,7 @@ export const {
   },
   pages: {
     signIn: "/auth/login",
-    //error: "/auth/error",
+    error: "/auth/error",
   },
   session: { strategy: "jwt" },
   ...authConfig,
