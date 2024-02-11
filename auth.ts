@@ -15,7 +15,7 @@ export const {
   callbacks: {
     async signIn({ user, account }) {
       // Allow OAuth without email verification.
-      if (account?.type === "oauth") return true;
+      if (account?.type !== "credentials") return true;
       // Prevent sign in without email verification.
       const existingUser = await getUserByID(user.id);
       if (!existingUser?.emailVerified) return false;
@@ -51,7 +51,7 @@ export const {
   },
   pages: {
     signIn: "/auth/login",
-    error: "/auth/error",
+    //error: "/auth/error",
   },
   session: { strategy: "jwt" },
   ...authConfig,
