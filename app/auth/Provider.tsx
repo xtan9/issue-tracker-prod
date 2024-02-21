@@ -1,4 +1,3 @@
-"use client";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
