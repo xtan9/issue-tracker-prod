@@ -1,12 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { signOut, useSession } from "next-auth/react";
 
 const SettingsPage = () => {
-  const session = useSession();
+  const user = useCurrentUser();
   return (
     <>
-      {JSON.stringify(session)}
+      {JSON.stringify(user)}
       <Button onClick={() => signOut()}>Sign out</Button>;
     </>
   );
