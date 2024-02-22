@@ -2,7 +2,7 @@
 
 import { signIn } from "@/auth"; // Sign in from server side
 import {
-  getTwoFactorConfirmationByUserId,
+  getTwoFactorConfirmationByUserID,
   getTwoFactorTokenByEmail,
   getUserByEmail,
 } from "@/lib/data";
@@ -57,7 +57,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         where: { id: twoFactorToken.id },
       });
 
-      const existingConfirmation = await getTwoFactorConfirmationByUserId(
+      const existingConfirmation = await getTwoFactorConfirmationByUserID(
         existingUser.id
       );
 
