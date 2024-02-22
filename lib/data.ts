@@ -93,13 +93,26 @@ export const getTwoFactorTokenByEmail = async (email: string) => {
   }
 };
 
-export const getTwoFactorConfirmationByUserId = async (userId: string) => {
+export const getTwoFactorConfirmationByUserID = async (userId: string) => {
   try {
     const twoFactorConfirmation = await db.twoFactorConfirmation.findUnique({
       where: { userId },
     });
 
     return twoFactorConfirmation;
+  } catch {
+    return null;
+  }
+};
+
+// Account
+export const getAccountByUserID = async (userId: string) => {
+  try {
+    const account = await db.account.findFirst({
+      where: { userId },
+    });
+
+    return account;
   } catch {
     return null;
   }
